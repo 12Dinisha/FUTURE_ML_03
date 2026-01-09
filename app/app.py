@@ -2,10 +2,19 @@ import streamlit as st
 import openai
 import os
 from dotenv import load_dotenv
+from pathlib import Path
 
-load_dotenv()
+# FORCE load .env from project root
+ROOT_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(ROOT_DIR / ".env")
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
+
+if not openai.api_key:
+    st.error("❌ OpenAI API key not loaded")
+    st.stop()
+
+st.write("API key loaded:", bool(openai.api_key))  # DEBUG LINE
 
 st.set_page_config(page_title="Customer Support Chatbot", layout="centered")
 
@@ -32,4 +41,3 @@ if user_input:
         st.write(reply)
 
     st.session_state.messages.append({"role": "assistant", "content": reply})
-
