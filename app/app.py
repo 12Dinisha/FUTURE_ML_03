@@ -1,23 +1,18 @@
 import streamlit as st
-<<<<<<< HEAD
 import openai
 import os
 from dotenv import load_dotenv
 from pathlib import Path
 
-# FORCE load .env from project root
+# Load .env from project root
 ROOT_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(ROOT_DIR / ".env")
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
-=======
->>>>>>> be418f2 (Update chatbot app and ignore env file)
 
 if not openai.api_key:
     st.error("❌ OpenAI API key not loaded")
     st.stop()
-
-st.write("API key loaded:", bool(openai.api_key))  # DEBUG LINE
 
 st.set_page_config(page_title="Customer Support Chatbot", layout="centered")
 
